@@ -22,7 +22,7 @@
 storage.rules
 firestore.rules
 firebase-dir/
-firebase-export/
+firebase-export*
 firebase-debug.log
 firestore-debug.log
 ui-debug.log

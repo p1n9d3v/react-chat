@@ -1,0 +1,29 @@
+.ChatForm {
+    border-top: 1px solid var(--gray-300);
+}
+
+.ChatForm_textarea {
+    height: 9.6rem;
+    width: 100%;
+    padding: 1.2rem 1.6rem;
+    background: #fff;
+}
+
+.ChatForm_textarea textarea {
+    all: unset;
+    display: inline-block;
+    width: 100%;
+    font-size: 1.4rem;
+}
+
+.ChatForm_textarea textarea::placeholder {
+    color: var(--gray-500);
+}
+
+.ChatForm_actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.6rem;
+    border-top: 1px solid var(--gray-300);
+}

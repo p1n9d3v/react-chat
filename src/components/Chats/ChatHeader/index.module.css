@@ -1,0 +1,34 @@
+.ChatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 6.4rem;
+    height: 100vh;
+    padding: 0 1.6rem;
+    border-bottom: 1px solid var(--gray-300);
+    background: #fff;
+}
+
+.ChatHeader_userInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.ChatHeader_profileImg {
+    width: 3.8rem;
+    height: 3.8rem;
+    border-radius: 50%;
+}
+.ChatHeader_username {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.ChatHeader_interactions {
+    display: flex;
+    column-gap: 0.8rem;
+}
+
+.ChatHeader_interactions path {
+    fill: var(--primary-700);
+}

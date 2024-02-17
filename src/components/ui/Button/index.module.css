@@ -1,0 +1,20 @@
+.Button {
+    display: inline-block;
+    padding: 0 1.2rem;
+    border-radius: 0.8rem;
+    color: white;
+    background-color: var(--primary-700);
+}
+
+.Button___lg {
+    font-size: 1.6rem;
+    padding: 1.8rem 2.4rem;
+}
+.Button___md {
+    font-size: 1.4rem;
+    padding: 1.4rem 2rem;
+}
+.Button___sm {
+    font-size: 1.2rem;
+    padding: 1rem 1.2rem;
+}

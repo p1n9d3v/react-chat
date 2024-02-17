@@ -1,0 +1,21 @@
+.OAuthButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    height: 4rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 0.8rem;
+    font-size: 1.4rem;
+    transition: background-color 0.2s;
+}
+
+.OAuthButton:hover {
+    background-color: var(--gray-100);
+}
+
+.OAuthButton svg {
+    width: 2.4rem;
+    height: 2.4rem;
+}

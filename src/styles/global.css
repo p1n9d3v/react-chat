@@ -1,0 +1,66 @@
+@import "reset-css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap");
+
+:root {
+    --primary-900: #233876;
+    --primary-800: #1e429f;
+    --primary-700: #1a56db;
+    --gray-900: #171725;
+    --gray-800: #44444f;
+    --gray-700: #696974;
+    --gray-600: #92929d;
+    --gray-500: #b5b5be;
+    --gray-400: #d5d5dc;
+    --gray-300: #e2e2ea;
+    --gray-200: #f1f1f5;
+    --gray-100: #f3f4f6;
+    --red-900: #771d1d;
+    --red-800: #9b1c1c;
+    --red-700: #c81e1e;
+    --pink-600: #d61f69;
+    --input-placeholder-color: #6b7280;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+button,
+input {
+    all: unset;
+}
+button {
+    cursor: pointer;
+}
+
+html {
+    font-size: 62.5% !important;
+    font-family: "Inter", sans-serif;
+    color: var(--gray-900);
+    overflow: hidden;
+}
+
+#root {
+    width: 100dvw;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--gray-400);
+    border-radius: 20px;
+}
+*::-webkit-scrollbar {
+    border: none;
+    background-color: transparent;
+    width: 10px;
+}
+
+.firebase-emulator-warning {
+    z-index: -999999 important;
+}

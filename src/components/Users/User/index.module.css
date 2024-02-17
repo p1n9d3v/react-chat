@@ -1,0 +1,33 @@
+.User {
+    width: 100%;
+    display: flex;
+    gap: 0.8rem;
+    padding: 1.2rem;
+    transition: background-color 0.2s;
+}
+
+.User:hover {
+    background-color: var(--gray-100);
+}
+
+.User_avatar {
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+}
+
+.User_info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.User_name {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.User_email {
+    font-size: 1.2rem;
+    color: var(--gray-500);
+}

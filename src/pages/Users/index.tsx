@@ -5,6 +5,7 @@ import styles from "./index.module.css";
 import { UserInfo } from "@firebase/auth";
 import { useQuery } from "react-query";
 import { useState } from "react";
+import { useUser } from "contexts/UserContext";
 
 type UserMap = Map<string, UserInfo> | null;
 
@@ -14,19 +15,20 @@ function Users() {
         ["users"],
         async () => await fireUsers.getDocs(),
     );
+    const { currentUser } = useUser();
 
     return (
         <div className={styles.Users}>
             <div className={styles.Users_col}>
                 <ul>
                     {users &&
-                        Array.from(users, ([_, user]) => user).map(
-                            (user, index) => (
+                        Array.from(users, ([_, user]) => user)
+                            .filter((user) => user.uid !== currentUser!.uid)
+                            .map((user, index) => (
                                 <li key={index} onClick={() => setUser(user)}>
                                     <User user={user} />
                                 </li>
-                            ),
-                        )}
+                            ))}
                 </ul>
             </div>
             <div className={styles.Users_col}>

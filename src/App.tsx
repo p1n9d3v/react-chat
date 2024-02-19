@@ -1,27 +1,18 @@
 import Layout from "components/layout/Layout";
-import { useUser } from "contexts/UserContext";
+import PrivateProvider from "contexts/PrivateProvider";
 import Chats from "pages/Chats";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import Users from "pages/Users";
-import { PropsWithChildren, useLayoutEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-const PrivateApp = ({ children }: PropsWithChildren) => {
-    const { login } = useUser();
-    useLayoutEffect(() => {
-        if (!login) document.location.href = "/login";
-    }, [login]);
-    return <>{children} </>;
-};
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <PrivateApp>
+            <PrivateProvider>
                 <Layout />
-            </PrivateApp>
+            </PrivateProvider>
         ),
         children: [
             {

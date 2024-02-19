@@ -4,11 +4,12 @@ import styles from "./index.module.css";
 interface Props {
     icon: ReactNode;
     text: string;
+    onClick?: () => void;
 }
 
-function IconButton({ icon, text }: Props) {
+function IconButton({ icon, text, onClick }: Props) {
     return (
-        <button className={styles.IconButton}>
+        <button className={styles.IconButton} onClick={onClick}>
             {icon}
             {text}
         </button>

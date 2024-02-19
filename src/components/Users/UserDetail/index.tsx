@@ -7,11 +7,13 @@ import styles from "./index.module.css";
 import { useUser } from "contexts/UserContext";
 import { useMutation } from "react-query";
 import Chat from "apis/chat";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     user: UserInfo;
 }
 function UserDetail({ user }: Props) {
+    const navigate = useNavigate();
     const { currentUser } = useUser();
     const { mutate: createChat } = useMutation({
         mutationFn: async () => {
@@ -38,7 +40,11 @@ function UserDetail({ user }: Props) {
             <div className={styles.UserDetail_actions}>
                 <IconButton icon={<PhoneIcon />} text="Audio" />
                 <IconButton icon={<VideoIcon />} text="Video" />
-                <IconButton icon={<ChatIcon />} text="Chat" />
+                <IconButton
+                    icon={<ChatIcon />}
+                    text="Chat"
+                    onClick={() => navigate("/chats")}
+                />
             </div>
 
             <div className={styles.UserDetail_stories}>

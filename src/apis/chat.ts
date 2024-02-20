@@ -3,7 +3,7 @@ import { UserInfo } from "firebase/auth";
 import { Firestore as FirestoreType } from "firebase/firestore";
 import Firestore from "./firestore";
 import sha256 from "crypto-js/sha256";
-import { WhereArray } from "types";
+import { ChatMeta, WhereArray } from "types";
 import { firestore } from "./config";
 class Chat {
     static async create(_participants: UserInfo[]) {
@@ -46,6 +46,14 @@ class Chat {
         if (!data) return null;
 
         return data[0];
+    }
+
+    static async getChatMeta(cId: string) {
+        const chatMeta = await fireChats.queryDocs({
+            queries: [["cId", "==", cId]],
+        });
+        if (!chatMeta) return undefined;
+        return chatMeta[0].data as ChatMeta;
     }
 
     #fireChat?: Firestore;

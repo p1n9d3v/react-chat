@@ -1,9 +1,9 @@
-import { fireChats } from "apis";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { ChatMeta } from "types";
 import ChatForm from "../ChatForm";
 import ChatHeader from "../ChatHeader";
+import ChatApi from "apis/chat";
 import styles from "./index.module.css";
 
 function Chat() {
@@ -11,13 +11,7 @@ function Chat() {
     const cId = location.search.split("=")[1];
     const { data: chatMeta } = useQuery<ChatMeta | undefined>(
         ["chat", cId],
-        async () => {
-            const chatMeta = await fireChats.queryDocs({
-                queries: [["cId", "==", cId]],
-            });
-            if (!chatMeta) return undefined;
-            return chatMeta[0].data as ChatMeta;
-        },
+        async () => await ChatApi.getChatMeta(cId),
         {
             enabled: !!cId,
             suspense: true,

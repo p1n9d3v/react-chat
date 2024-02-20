@@ -5,6 +5,8 @@ import { fireChats } from "apis";
 import Chat from "components/Chats/Chat";
 import { ChatMeta } from "types";
 import { useNavigate } from "react-router-dom";
+import { Suspense } from "react";
+import Loading from "components/ui/Loading";
 
 function Chats() {
     const { data: chats } = useQuery(
@@ -32,7 +34,9 @@ function Chats() {
                 </ul>
             </div>
             <div className={styles.Chats_col}>
-                <Chat />
+                <Suspense fallback={<Loading />}>
+                    <Chat />
+                </Suspense>
             </div>
         </div>
     );

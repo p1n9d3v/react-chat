@@ -1,21 +1,34 @@
-import { useEffect } from "react";
-import { useLocation, useNavigation, useSearchParams } from "react-router-dom";
+import { fireChats } from "apis";
+import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
+import { ChatMeta } from "types";
 import ChatForm from "../ChatForm";
 import ChatHeader from "../ChatHeader";
 import styles from "./index.module.css";
 
 function Chat() {
     const location = useLocation();
+    const cId = location.search.split("=")[1];
+    const { data: chatMeta } = useQuery<ChatMeta | undefined>(
+        ["chat", cId],
+        async () => {
+            const chatMeta = await fireChats.queryDocs({
+                queries: [["cId", "==", cId]],
+            });
+            if (!chatMeta) return undefined;
+            return chatMeta[0].data as ChatMeta;
+        },
+        {
+            enabled: !!cId,
+            suspense: true,
+        },
+    );
 
-    console.log(location.search);
-    // useEffect(() => {
-    // 	if(location.search)
-    // },[])
-
+    if (!chatMeta) return null;
     return (
         <div className={styles.Chat}>
             <div className={styles.Chat_header}>
-                <ChatHeader />
+                <ChatHeader chatMeta={chatMeta} />
             </div>
             <div className={styles.Chat_content}></div>
             <div className={styles.Chat_form}>

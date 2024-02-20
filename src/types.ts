@@ -9,6 +9,7 @@ import {
 
 export type ChatMeta = {
     cId: string;
+    participantIds: string[];
     participants: UserInfo[];
 };
 

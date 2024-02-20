@@ -1,14 +1,17 @@
 import { useUser } from "contexts/UserContext";
+import { UserInfo } from "firebase/auth";
 import { ChatMeta } from "types";
 import styles from "./index.module.css";
 
 interface Props {
-    chat: ChatMeta;
+    chatMeta: {
+        participants: UserInfo[];
+    };
 }
 
-function ChatRoom({ chat }: Props) {
+function ChatRoom({ chatMeta }: Props) {
     const { currentUser } = useUser();
-    const participants = Object.values(chat.participants).filter(
+    const participants = Object.values(chatMeta.participants).filter(
         (user) => user.uid !== currentUser!.uid,
     );
 

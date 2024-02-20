@@ -9,8 +9,9 @@ interface Props {
 }
 
 function ChatHeader({ chatMeta }: Props) {
+    const { data: meta } = chatMeta;
     const { currentUser } = useUser();
-    const partner = Object.values(chatMeta.participants).filter(
+    const partner = Object.values(meta.participants).filter(
         (user) => user.uid !== currentUser!.uid,
     )[0];
 

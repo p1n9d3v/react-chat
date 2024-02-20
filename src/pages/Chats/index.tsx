@@ -3,7 +3,6 @@ import styles from "./index.module.css";
 import { useQuery } from "react-query";
 import { fireChats } from "apis";
 import Chat from "components/Chats/Chat";
-import { ChatMeta } from "types";
 import { useNavigate } from "react-router-dom";
 import { Suspense } from "react";
 import Loading from "components/ui/Loading";
@@ -15,8 +14,8 @@ function Chats() {
     );
     const navigate = useNavigate();
 
-    const handleClickChat = (chat: ChatMeta) => {
-        navigate(`/chats?chatId=${chat.cId}`);
+    const handleClickChat = (chatMeta: { cId: string }) => {
+        navigate(`/chats?chatId=${chatMeta.cId}`);
     };
 
     return (
@@ -25,9 +24,9 @@ function Chats() {
                 <ul>
                     {chats &&
                         Array.from(chats, ([_, value]) => value).map(
-                            (chat, index) => (
-                                <li onClick={() => handleClickChat(chat)}>
-                                    <ChatRoom key={index} chat={chat} />
+                            (chatMeta, index) => (
+                                <li onClick={() => handleClickChat(chatMeta)}>
+                                    <ChatRoom key={index} chatMeta={chatMeta} />
                                 </li>
                             ),
                         )}

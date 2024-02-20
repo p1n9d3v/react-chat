@@ -3,12 +3,20 @@ import { useForm } from "react-hook-form";
 import Button from "components/ui/Button";
 import ImageIcon from "components/icons/ImageIcon";
 import { useState } from "react";
+import Chat from "apis/chat";
+import { useUser } from "contexts/UserContext";
+import { ChatMeta } from "types";
 
+interface Props {
+    chatMeta: ChatMeta;
+}
 interface IChatForm {
     text: string;
 }
 
-function ChatForm() {
+function ChatForm({ chatMeta }: Props) {
+    const { id } = chatMeta;
+    const chat = new Chat(id);
     const [text, setText] = useState("");
     const { register, handleSubmit } = useForm<IChatForm>({
         defaultValues: {
@@ -16,8 +24,13 @@ function ChatForm() {
         },
     });
 
+    const { currentUser } = useUser();
+
     const sendMessage = (data: IChatForm) => {
-        console.log(data);
+        chat.sendMessage("text", data.text, {
+            displayName: currentUser!.displayName ?? "",
+            uid: currentUser!.uid,
+        });
     };
 
     return (

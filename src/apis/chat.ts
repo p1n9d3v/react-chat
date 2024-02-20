@@ -53,7 +53,7 @@ class Chat {
             queries: [["cId", "==", cId]],
         });
         if (!chatMeta) return undefined;
-        return chatMeta[0].data as ChatMeta;
+        return chatMeta[0] as ChatMeta;
     }
 
     #fireChat?: Firestore;

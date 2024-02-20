@@ -26,7 +26,7 @@ function Chat() {
             </div>
             <div className={styles.Chat_content}></div>
             <div className={styles.Chat_form}>
-                <ChatForm />
+                <ChatForm chatMeta={chatMeta} />
             </div>
         </div>
     );

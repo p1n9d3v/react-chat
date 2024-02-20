@@ -14,6 +14,14 @@ class FireAuth {
         this.#auth = auth;
     }
 
+    get currentUser() {
+        return this.#auth?.currentUser;
+    }
+
+    logout() {
+        this.#auth?.signOut();
+    }
+
     async loginWithGoogle(): Promise<{
         user: UserInfo;
         token: string;

@@ -31,6 +31,9 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
                       } as UserInfo)
                     : null,
             });
+            if (window.location.pathname !== "/login" && !user) {
+                window.location.href = "/login";
+            }
         });
     }, []);
 

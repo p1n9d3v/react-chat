@@ -1,5 +1,4 @@
 import Layout from "components/layout/Layout";
-import PrivateProvider from "contexts/PrivateProvider";
 import Chats from "pages/Chats";
 import Home from "pages/Home";
 import Login from "pages/Login";
@@ -9,11 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: (
-            <PrivateProvider>
-                <Layout />
-            </PrivateProvider>
-        ),
+        element: <Layout />,
         children: [
             {
                 index: true,

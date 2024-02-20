@@ -33,6 +33,7 @@ function Users() {
             </div>
             <div className={styles.Users_col}>
                 {user && <UserDetail user={user} />}
+                {!user && <div>Select a user to see details</div>}
             </div>
         </div>
     );

@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 
 export type ChatMeta = {
+    cId: string;
     participants: UserInfo[];
 };
 

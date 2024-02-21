@@ -8,14 +8,13 @@ import { useUser } from "contexts/UserContext";
 import { ChatMeta } from "types";
 
 interface Props {
-    chatMeta: ChatMeta;
+    id: string;
 }
 interface IChatForm {
     text: string;
 }
 
-function ChatForm({ chatMeta }: Props) {
-    const { id } = chatMeta;
+function ChatForm({ id }: Props) {
     const chat = new Chat(id);
     const [text, setText] = useState("");
     const { register, handleSubmit } = useForm<IChatForm>({

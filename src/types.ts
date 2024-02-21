@@ -9,11 +9,13 @@ import {
 
 export type ChatMeta = {
     id: string;
-    data: {
-        cId: string;
-        participantIds: string[];
-        participants: UserInfo[];
-    };
+    data: ChatMetaData;
+};
+
+export type ChatMetaData = {
+    cId: string;
+    participantIds: string[];
+    participants: UserInfo[];
 };
 
 // chat api

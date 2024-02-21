@@ -1,17 +1,16 @@
 import PhoneIcon from "components/icons/PhoneIcon";
 import VideoIcon from "components/icons/VideoIcon";
 import { useUser } from "contexts/UserContext";
-import { ChatMeta } from "types";
+import { ChatMetaData } from "types";
 import styles from "./index.module.css";
 
 interface Props {
-    chatMeta: ChatMeta;
+    chatMeta: ChatMetaData;
 }
 
 function ChatHeader({ chatMeta }: Props) {
-    const { data: meta } = chatMeta;
     const { currentUser } = useUser();
-    const partner = Object.values(meta.participants).filter(
+    const partner = Object.values(chatMeta.participants).filter(
         (user) => user.uid !== currentUser!.uid,
     )[0];
 

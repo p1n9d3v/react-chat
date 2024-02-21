@@ -1,0 +1,35 @@
+.UserProfilePopup {
+    position: absolute;
+    right: 0;
+    background: #fff;
+    border: 1px solid var(--gray-300);
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    font-size: 1.4rem;
+    text-align: center;
+    overflow: hidden;
+}
+.UserProfilePopup ul li:not(:last-child) {
+    border-bottom: 1px solid var(--gray-300);
+    padding: 0.8rem 1.6rem;
+    width: 100%;
+}
+
+.UserProfilePopup ul li:last-child {
+    cursor: pointer;
+    background: var(--red-700);
+}
+.UserProfilePopup_logout {
+    color: #fff;
+    cursor: pointer;
+    padding: 0.8rem 1.6rem;
+}
+.UserProfilePopup___open {
+    display: block;
+}
+
+.UserProfilePopup___close {
+    display: none;
+}

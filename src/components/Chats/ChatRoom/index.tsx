@@ -1,6 +1,5 @@
 import { useUser } from "contexts/UserContext";
 import { UserInfo } from "firebase/auth";
-import { ChatMeta } from "types";
 import styles from "./index.module.css";
 
 interface Props {

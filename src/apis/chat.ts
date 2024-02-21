@@ -1,6 +1,5 @@
 import { fireChats } from "apis";
 import { UserInfo } from "firebase/auth";
-import { Firestore as FirestoreType } from "firebase/firestore";
 import Firestore from "./firestore";
 import sha256 from "crypto-js/sha256";
 import { ChatMeta, WhereArray } from "types";

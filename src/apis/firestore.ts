@@ -17,7 +17,12 @@ import {
     endAt,
     endBefore,
     startAfter,
+    onSnapshot,
+    DocumentReference,
+    DocumentSnapshot,
+    QuerySnapshot,
 } from "firebase/firestore";
+import { Query } from "react-query";
 import { Collection, Document, Order, StartPoint, WhereArray } from "types";
 
 class Firestore {
@@ -191,6 +196,10 @@ class Firestore {
 
     async deleteDoc() {
         await deleteDoc(this.#ref as Document);
+    }
+
+    subscribe(callback: (doc: QuerySnapshot) => void) {
+        return onSnapshot(this.#ref as Collection, callback);
     }
 }
 

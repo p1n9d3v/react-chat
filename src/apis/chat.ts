@@ -4,6 +4,7 @@ import Firestore from "./firestore";
 import sha256 from "crypto-js/sha256";
 import { ChatMeta, ChatMetaData, WhereArray } from "types";
 import { firestore } from "./config";
+import { DocumentSnapshot, QuerySnapshot } from "firebase/firestore";
 class Chat {
     static async create(_participants: UserInfo[]) {
         if (_participants.length < 2)
@@ -66,10 +67,10 @@ class Chat {
     #fireMessage?: Firestore;
     #cId?: string;
 
-    constructor(cId: string) {
-        this.#fireChat = new Firestore(firestore, `chats/${cId}`);
-        this.#fireMessage = new Firestore(firestore, `chats/${cId}/messages`);
-        this.#cId = cId;
+    constructor(id: string) {
+        this.#fireChat = new Firestore(firestore, `chats/${id}`);
+        this.#fireMessage = new Firestore(firestore, `chats/${id}/messages`);
+        this.#cId = id;
     }
 
     get cId() {
@@ -94,6 +95,10 @@ class Chat {
         const message = await this.#fireMessage?.addDoc(data);
 
         return message;
+    }
+
+    subscribe(callback: (snapshot: QuerySnapshot) => void) {
+        return this.#fireMessage!.subscribe(callback);
     }
 }
 

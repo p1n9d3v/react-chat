@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { ChatMetaData } from "types";
 import ChatForm from "../ChatForm";
 import ChatHeader from "../ChatHeader";
+import ChatContent from "../ChatContent";
 import ChatApi from "apis/chat";
 import styles from "./index.module.css";
 
@@ -24,7 +25,9 @@ function Chat() {
             <div className={styles.Chat_header}>
                 <ChatHeader chatMeta={chatMetaData} />
             </div>
-            <div className={styles.Chat_content}></div>
+            <div className={styles.Chat_content}>
+                <ChatContent id={id} />
+            </div>
             <div className={styles.Chat_form}>
                 <ChatForm id={id} />
             </div>

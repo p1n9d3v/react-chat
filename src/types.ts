@@ -18,6 +18,15 @@ export type ChatMetaData = {
     participants: UserInfo[];
 };
 
+export type Message = {
+    date: Date;
+    type: "text" | "string";
+    content: string;
+    sender: Sender;
+};
+
+export type Sender = Pick<UserInfo, "displayName" | "uid">;
+
 // chat api
 export type WhereArray = [string | FieldPath, WhereFilterOp, unknown];
 export type Document = DocumentReference<DocumentData, DocumentData>;

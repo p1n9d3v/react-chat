@@ -17,7 +17,7 @@ interface IChatForm {
 function ChatForm({ id }: Props) {
     const chat = new Chat(id);
     const [text, setText] = useState("");
-    const { register, handleSubmit } = useForm<IChatForm>({
+    const { register, handleSubmit, reset } = useForm<IChatForm>({
         defaultValues: {
             text: "",
         },
@@ -30,6 +30,7 @@ function ChatForm({ id }: Props) {
             displayName: currentUser!.displayName ?? "",
             uid: currentUser!.uid,
         });
+        reset();
     };
 
     return (

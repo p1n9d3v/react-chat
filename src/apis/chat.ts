@@ -2,7 +2,7 @@ import { fireChat, fireChats } from "apis";
 import { UserInfo } from "firebase/auth";
 import Firestore from "./firestore";
 import sha256 from "crypto-js/sha256";
-import { ChatMeta, ChatMetaData, WhereArray } from "types";
+import { ChatMeta, ChatMetaData, Sender, WhereArray } from "types";
 import { firestore } from "./config";
 import { DocumentSnapshot, QuerySnapshot } from "firebase/firestore";
 class Chat {
@@ -80,7 +80,7 @@ class Chat {
     async sendMessage(
         type: "enter" | "text" | "img" | "exit",
         content: any,
-        sender: { displayName: string; uid: string },
+        sender: Sender,
     ) {
         if (!Chat.isExist(this.#cId!)) throw new Error("chat is not exist");
         // 시간, 메시지, 타입, sender정보,

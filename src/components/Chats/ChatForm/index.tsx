@@ -5,7 +5,6 @@ import ImageIcon from "components/icons/ImageIcon";
 import { useState } from "react";
 import Chat from "apis/chat";
 import { useUser } from "contexts/UserContext";
-import { ChatMeta } from "types";
 
 interface Props {
     id: string;
@@ -29,6 +28,7 @@ function ChatForm({ id }: Props) {
         chat.sendMessage("text", data.text, {
             displayName: currentUser!.displayName ?? "",
             uid: currentUser!.uid,
+            photoURL: currentUser!.photoURL ?? "",
         });
         reset();
     };

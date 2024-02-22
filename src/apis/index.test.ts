@@ -345,6 +345,7 @@ describe("chat", () => {
             const sender = {
                 displayName: mockParticipants[0].displayName,
                 uid: mockParticipants[0].uid,
+                photoURL: mockParticipants[0].photoURL,
             };
             const content = "123";
             const message = await chat.sendMessage("text", content, sender);

@@ -1,2 +1,9 @@
 .ChatContent {
+    padding: 1.6rem;
+}
+
+.ChatContent_partnerProfileImg {
+    border-radius: 50%;
+    width: 3.2rem;
+    height: 3.2rem;
 }

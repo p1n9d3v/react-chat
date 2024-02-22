@@ -19,13 +19,16 @@ export type ChatMetaData = {
 };
 
 export type Message = {
-    date: Date;
-    type: "text" | "string";
+    date: {
+        seconds: number;
+        nanoseconds: number;
+    };
+    type: "text" | "img";
     content: string;
     sender: Sender;
 };
 
-export type Sender = Pick<UserInfo, "displayName" | "uid">;
+export type Sender = Pick<UserInfo, "displayName" | "uid" | "photoURL">;
 
 // chat api
 export type WhereArray = [string | FieldPath, WhereFilterOp, unknown];

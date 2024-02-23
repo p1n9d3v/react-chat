@@ -1,2 +1,19 @@
-.Message {
+.Messages {
+}
+.Messages_text {
+    background: var(--gray-300);
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    width: fit-content;
+    white-space: pre-wrap;
+}
+
+.Messages_text___left {
+    border-top-left-radius: 0;
+}
+
+.Messages_text___right {
+    border-top-right-radius: 0;
+    margin-left: auto;
 }

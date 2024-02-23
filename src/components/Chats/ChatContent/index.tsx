@@ -4,18 +4,20 @@ import { QueryDocumentSnapshot, QuerySnapshot } from "firebase/firestore";
 import { useState, useEffect, useMemo } from "react";
 import { Message } from "types";
 import { parseMessages } from "utils";
+import cn from "classnames";
 import styles from "./index.module.css";
+import Messages from "../Messages";
 
 interface Props {
     id: string;
 }
 function ChatContent({ id }: Props) {
-    const { currentUser } = useUser();
+    const { currentUser, isMe } = useUser();
     const chat = new Chat(id);
     const [rawMessages, setRawMessages] = useState<Map<string, Message>>(
         new Map(),
     );
-    const messages = useMemo(
+    const messageGroups = useMemo(
         () => parseMessages(rawMessages, currentUser!),
         [rawMessages],
     );
@@ -35,26 +37,29 @@ function ChatContent({ id }: Props) {
         };
     }, []);
 
-    console.log(messages);
-
     return (
         <div className={styles.ChatContent}>
             <ul>
-                {/* {messages.map((message) => ( */}
-                {/*     <li> */}
-                {/*         <img */}
-                {/*             className={styles.ChatContent_partnerProfileImg} */}
-                {/*             src={message.sender.photoURL ?? ""} */}
-                {/*             alt="partner img" */}
-                {/*         /> */}
-                {/*         <div> */}
-                {/*             <div className={styles.ChatContent_partnerName}> */}
-                {/*                 {message.sender.displayName} */}
-                {/*             </div> */}
-                {/*             <div></div> */}
-                {/*         </div> */}
-                {/*     </li> */}
-                {/* ))} */}
+                {messageGroups.map((messageGroup: Message[]) => (
+                    <li
+                        className={cn(styles.ChatContent_messageGroups, {
+                            [styles.ChatContent_messageGroups___isMe]: isMe(
+                                messageGroup.at(0)?.sender.uid ?? "",
+                            ),
+                        })}
+                    >
+                        <img
+                            src={messageGroup.at(0)?.sender.photoURL ?? ""}
+                            alt="partner img"
+                        />
+                        <div>
+                            <div className={styles.ChatContent_partnerName}>
+                                {messageGroup.at(0)?.sender.displayName}
+                            </div>
+                            <Messages messages={messageGroup} />
+                        </div>
+                    </li>
+                ))}
             </ul>
         </div>
     );

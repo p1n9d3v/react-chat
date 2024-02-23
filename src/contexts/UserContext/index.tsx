@@ -44,4 +44,11 @@ export const UserContextProvider = ({ children }: PropsWithChildren) => {
     );
 };
 
-export const useUser = () => useContext(UserContext);
+export const useUser = () => {
+    const { currentUser, login } = useContext(UserContext);
+    return {
+        currentUser,
+        login,
+        isMe: (uid: string) => currentUser!.uid === uid,
+    };
+};

@@ -2,8 +2,35 @@
     padding: 1.6rem;
 }
 
-.ChatContent_partnerProfileImg {
+.ChatContent ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.ChatContent_messageGroups {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.ChatContent_messageGroups img {
     border-radius: 50%;
     width: 3.2rem;
     height: 3.2rem;
+}
+
+.ChatContent_messageGroups div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.ChatContent_partnerName {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.ChatContent_messageGroups___isMe {
+    display: flex;
+    flex-direction: row-reverse;
 }

@@ -10,6 +10,7 @@ export const parseDate = (date: Date, type: "time") => {
             throw new Error("Invaild type");
     }
 };
+
 export const parseMessages = (
     rawMessages: Map<string, Message>,
     currentUser: UserInfo,
@@ -31,10 +32,9 @@ export const seperateMessagesByUserAndTime = (
     let prevSenderUid = currentUser!.uid;
     let prevDate = 0;
     messages.forEach((message, index) => {
-        console.log(message.date.seconds - prevDate);
         if (
             prevSenderUid === message.sender.uid &&
-            message.date.seconds - prevDate <= 60 
+            message.date.seconds - prevDate <= 60
         ) {
             messageGroup.push(message);
         } else {

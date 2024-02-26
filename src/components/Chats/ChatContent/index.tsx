@@ -38,6 +38,9 @@ function ChatContent({ id }: Props) {
         };
     }, []);
 
+    const getSenderUidFromMessages = (messages: Message[]) =>
+        messages.at(0)?.sender.uid ?? "";
+
     return (
         <div className={styles.ChatContent}>
             <ScrollToBottom
@@ -52,7 +55,7 @@ function ChatContent({ id }: Props) {
                         <li
                             className={cn(styles.ChatContent_messageGroups, {
                                 [styles.ChatContent_messageGroups___isMe]: isMe(
-                                    messageGroup.at(0)?.sender.uid ?? "",
+                                    getSenderUidFromMessages(messageGroup),
                                 ),
                             })}
                         >
@@ -61,7 +64,19 @@ function ChatContent({ id }: Props) {
                                 alt="partner img"
                             />
                             <div>
-                                <div className={styles.ChatContent_partnerName}>
+                                <div
+                                    className={cn(
+                                        styles.ChatContent_partnerName,
+                                        {
+                                            [styles.ChatContent_partnerName___isMe]:
+                                                isMe(
+                                                    getSenderUidFromMessages(
+                                                        messageGroup,
+                                                    ),
+                                                ),
+                                        },
+                                    )}
+                                >
                                     {messageGroup.at(0)?.sender.displayName}
                                 </div>
                                 <Messages messages={messageGroup} />

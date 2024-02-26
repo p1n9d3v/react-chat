@@ -30,6 +30,10 @@
     font-weight: 700;
 }
 
+.ChatContent_partnerName___isMe {
+    text-align: right;
+}
+
 .ChatContent_messageGroups___isMe {
     display: flex;
     flex-direction: row-reverse;

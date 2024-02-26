@@ -7,6 +7,7 @@ import { parseMessages } from "utils";
 import cn from "classnames";
 import styles from "./index.module.css";
 import Messages from "../Messages";
+import ScrollToBottom from "components/common/ScrollToBottom";
 
 interface Props {
     id: string;
@@ -39,28 +40,36 @@ function ChatContent({ id }: Props) {
 
     return (
         <div className={styles.ChatContent}>
-            <ul>
-                {messageGroups.map((messageGroup: Message[]) => (
-                    <li
-                        className={cn(styles.ChatContent_messageGroups, {
-                            [styles.ChatContent_messageGroups___isMe]: isMe(
-                                messageGroup.at(0)?.sender.uid ?? "",
-                            ),
-                        })}
-                    >
-                        <img
-                            src={messageGroup.at(0)?.sender.photoURL ?? ""}
-                            alt="partner img"
-                        />
-                        <div>
-                            <div className={styles.ChatContent_partnerName}>
-                                {messageGroup.at(0)?.sender.displayName}
+            <ScrollToBottom
+                style={{
+                    height: "calc(100dvh - 33rem)",
+                    paddingRight: "1.6rem",
+                }}
+                dependencies={[rawMessages]}
+            >
+                <ul>
+                    {messageGroups.map((messageGroup: Message[]) => (
+                        <li
+                            className={cn(styles.ChatContent_messageGroups, {
+                                [styles.ChatContent_messageGroups___isMe]: isMe(
+                                    messageGroup.at(0)?.sender.uid ?? "",
+                                ),
+                            })}
+                        >
+                            <img
+                                src={messageGroup.at(0)?.sender.photoURL ?? ""}
+                                alt="partner img"
+                            />
+                            <div>
+                                <div className={styles.ChatContent_partnerName}>
+                                    {messageGroup.at(0)?.sender.displayName}
+                                </div>
+                                <Messages messages={messageGroup} />
                             </div>
-                            <Messages messages={messageGroup} />
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </ScrollToBottom>
         </div>
     );
 }

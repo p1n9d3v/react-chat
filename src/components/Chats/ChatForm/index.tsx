@@ -2,7 +2,7 @@ import styles from "./index.module.css";
 import { useForm } from "react-hook-form";
 import Button from "components/ui/Button";
 import ImageIcon from "components/icons/ImageIcon";
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import Chat from "apis/chat";
 import { useUser } from "contexts/UserContext";
 
@@ -25,12 +25,21 @@ function ChatForm({ id }: Props) {
     const { currentUser } = useUser();
 
     const sendMessage = (data: IChatForm) => {
+        if (data.text === "") return;
+
         chat.sendMessage("text", data.text, {
             displayName: currentUser!.displayName ?? "",
             uid: currentUser!.uid,
             photoURL: currentUser!.photoURL ?? "",
         });
         reset();
+    };
+
+    const handleEnterDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage({ text });
+        }
     };
 
     return (
@@ -42,6 +51,7 @@ function ChatForm({ id }: Props) {
                     rows={5}
                     placeholder="Wirte Text..."
                     onChange={(e) => setText(e.target.value)}
+                    onKeyDown={handleEnterDown}
                 />
             </div>
             <div className={styles.ChatForm_actions}>

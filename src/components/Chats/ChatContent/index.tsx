@@ -8,6 +8,8 @@ import cn from "classnames";
 import styles from "./index.module.css";
 import Messages from "../Messages";
 import ScrollToBottom from "components/common/ScrollToBottom";
+import { ChatDB } from "apis/indexedDB";
+import { Unsubscribe } from "firebase/auth";
 
 interface Props {
     id: string;
@@ -24,17 +26,38 @@ function ChatContent({ id }: Props) {
     );
 
     useEffect(() => {
-        const unsub = chat.subscribe((snapshot: QuerySnapshot) => {
-            snapshot.forEach((doc: QueryDocumentSnapshot) => {
-                const newMsg = doc.data() as Message;
-                setRawMessages((oldMsges) =>
-                    new Map(oldMsges).set(doc.id, newMsg),
-                );
-            });
-        });
+        let unsub: Unsubscribe | null = null;
+        (async () => {
+            const oldChat = (await ChatDB.get("chats", id)) as any;
+
+            unsub = chat.querySubscribe(
+                {
+                    order: {
+                        type: "asc",
+                        value: "date",
+                    },
+                    startPoint: {
+                        type: "startAfter",
+                        value: 0,
+                    },
+                },
+                (snapshot: QuerySnapshot) => {
+                    snapshot.forEach((doc: QueryDocumentSnapshot) => {
+                        const newMsg = doc.data() as Message;
+                        setRawMessages((oldMsges) =>
+                            new Map(oldMsges).set(doc.id, newMsg),
+                        );
+                    });
+                },
+            );
+        })();
 
         return () => {
-            unsub();
+            if (unsub) unsub();
+            // ChatDB.put("chats", {
+            //     id,
+            //     messages: Array.from(messages),
+            // });
         };
     }, []);
 

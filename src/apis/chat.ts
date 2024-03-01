@@ -2,7 +2,14 @@ import { fireChat, fireChats } from "apis";
 import { UserInfo } from "firebase/auth";
 import Firestore from "./firestore";
 import sha256 from "crypto-js/sha256";
-import { ChatMeta, ChatMetaData, Sender, WhereArray } from "types";
+import {
+    ChatMeta,
+    ChatMetaData,
+    Order,
+    Sender,
+    StartPoint,
+    WhereArray,
+} from "types";
 import { firestore } from "./config";
 import { DocumentSnapshot, QuerySnapshot } from "firebase/firestore";
 class Chat {
@@ -83,11 +90,10 @@ class Chat {
         sender: Sender,
     ) {
         if (!Chat.isExist(this.#cId!)) throw new Error("chat is not exist");
-        // 시간, 메시지, 타입, sender정보,
-        // 타입 enter, text, img, exit
+        console.log(new Date().getTime());
         const data = {
             type,
-            date: new Date(),
+            date: new Date().getTime(),
             content,
             sender,
         };
@@ -99,6 +105,18 @@ class Chat {
 
     subscribe(callback: (snapshot: QuerySnapshot) => void) {
         return this.#fireMessage!.subscribe(callback);
+    }
+
+    querySubscribe(
+        queryArgs: {
+            queries?: Array<WhereArray>;
+            order?: Order;
+            limit?: number;
+            startPoint?: StartPoint;
+        },
+        callback: (snapshot: QuerySnapshot) => void,
+    ) {
+        return this.#fireMessage!.querySubscribe(queryArgs, callback);
     }
 }
 

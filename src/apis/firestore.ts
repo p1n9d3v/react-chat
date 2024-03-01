@@ -201,6 +201,26 @@ class Firestore {
     subscribe(callback: (doc: QuerySnapshot) => void) {
         return onSnapshot(this.#ref as Collection, callback);
     }
+
+    querySubscribe(
+        queryArgs: {
+            queries?: Array<WhereArray>;
+            order?: Order;
+            limit?: number;
+            startPoint?: StartPoint;
+        },
+        callback: (doc: QuerySnapshot) => void,
+    ) {
+        const { queries, order, limit, startPoint } = queryArgs;
+        const parsedQueries = this.#parseQueries(
+            queries,
+            order,
+            limit,
+            startPoint,
+        );
+        const q = query(this.#ref as Collection, ...parsedQueries);
+        return onSnapshot(q, callback);
+    }
 }
 
 export default Firestore;

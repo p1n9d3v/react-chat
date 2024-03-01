@@ -4,6 +4,7 @@ import {
     DocumentData,
     DocumentReference,
     FieldPath,
+    Timestamp,
     WhereFilterOp,
 } from "firebase/firestore";
 
@@ -36,7 +37,7 @@ export type Document = DocumentReference<DocumentData, DocumentData>;
 export type Collection = CollectionReference<DocumentData, DocumentData>;
 export type StartPoint = {
     type: "startAt" | "startAfter" | "endAt" | "endBefore";
-    value: number;
+    value: number | Timestamp;
 };
 export type Order = {
     type: "asc" | "desc";

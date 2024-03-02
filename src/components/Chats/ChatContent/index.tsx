@@ -34,11 +34,13 @@ function ChatContent({ id }: Props) {
         (async () => {
             const oldChat = (await ChatDB.get("chats", id)) as any;
             const oldMessages = oldChat?.messages;
-            setRawMessages(
-                new Map<string, Message>(
-                    oldMessages.map((msg: Message) => [msg.id, msg]),
-                ),
-            );
+            if (oldMessages?.length > 0) {
+                setRawMessages(
+                    new Map<string, Message>(
+                        oldMessages.map((msg: Message) => [msg.id, msg]),
+                    ),
+                );
+            }
 
             unsub = chat.querySubscribe(
                 {

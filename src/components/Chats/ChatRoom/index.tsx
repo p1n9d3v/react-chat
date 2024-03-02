@@ -1,6 +1,9 @@
+import Chat from "apis/chat";
 import { useUser } from "contexts/UserContext";
-import { UserInfo } from "firebase/auth";
-import { ChatMeta } from "types";
+import { QueryDocumentSnapshot, QuerySnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { ChatMeta, Message } from "types";
+import { parseDate } from "utils";
 import styles from "./index.module.css";
 
 interface Props {
@@ -12,6 +15,31 @@ function ChatRoom({ chatMeta }: Props) {
     const participants = Object.values(chatMeta.data.participants).filter(
         (user) => user.uid !== currentUser!.uid,
     );
+    const chat = new Chat(chatMeta.id);
+    const [latestMessage, setLatestMessage] = useState<Message | undefined>(
+        undefined,
+    );
+
+    useEffect(() => {
+        const unsub = chat.querySubscribe(
+            {
+                order: {
+                    type: "desc",
+                    value: "date",
+                },
+                limit: 1,
+            },
+            (snapshot: QuerySnapshot) => {
+                snapshot.forEach((doc: QueryDocumentSnapshot) => {
+                    setLatestMessage(doc.data() as Message | undefined);
+                });
+            },
+        );
+
+        return () => {
+            if (unsub) unsub();
+        };
+    }, []);
 
     return (
         <div className={styles.ChatRoom}>
@@ -25,13 +53,13 @@ function ChatRoom({ chatMeta }: Props) {
                     <div className={styles.ChatRoom_username}>
                         {participants.map((user) => user.displayName).join(",")}
                     </div>
-                    {/* <div className={styles.ChatRoom_messageTime}> */}
-                    {/*     {parseDate(message.time, "time")} */}
-                    {/* </div> */}
+                    <div className={styles.ChatRoom_messageTime}>
+                        {parseDate(latestMessage?.date ?? 0, "time")}
+                    </div>
                 </div>
-                {/* <div className={styles.ChatRoom_messageContent}> */}
-                {/*     {message.content} */}
-                {/* </div> */}
+                <div className={styles.ChatRoom_messageContent}>
+                    {latestMessage?.content}
+                </div>
             </div>
         </div>
     );

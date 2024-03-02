@@ -10,7 +10,7 @@ function Messages({ messages }: Props) {
     const { currentUser, isMe } = useUser();
 
     return (
-        <div>
+        <div className={styles.Messages}>
             {messages.map((message) => (
                 <div
                     className={cn(styles.Messages_text, {

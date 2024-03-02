@@ -90,7 +90,6 @@ class Chat {
         sender: Sender,
     ) {
         if (!Chat.isExist(this.#cId!)) throw new Error("chat is not exist");
-        console.log(new Date().getTime());
         const data = {
             type,
             date: new Date().getTime(),
@@ -101,10 +100,6 @@ class Chat {
         const message = await this.#fireMessage?.addDoc(data);
 
         return message;
-    }
-
-    subscribe(callback: (snapshot: QuerySnapshot) => void) {
-        return this.#fireMessage!.subscribe(callback);
     }
 
     querySubscribe(

@@ -86,7 +86,6 @@ function ChatContent({ id }: Props) {
             <ScrollToBottom
                 style={{
                     height: "calc(100dvh - 33rem)",
-                    paddingRight: "1.6rem",
                 }}
                 dependencies={[rawMessages]}
             >

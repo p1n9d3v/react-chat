@@ -1,10 +1,11 @@
 import { UserInfo } from "firebase/auth";
 import { Message } from "types";
 
-export const parseDate = (date: Date, type: "time") => {
+export const parseDate = (date: number, type: "time") => {
+    const dateObj = new Date(date);
     switch (type) {
         case "time": {
-            return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+            return `${dateObj.getHours().toString().padStart(2, "0")}:${dateObj.getMinutes().toString().padStart(2, "0")}`;
         }
         default:
             throw new Error("Invaild type");

@@ -20,13 +20,11 @@ export type ChatMetaData = {
 };
 
 export type Message = {
-    date: {
-        seconds: number;
-        nanoseconds: number;
-    };
+    date: number;
     type: "text" | "img";
     content: string;
     sender: Sender;
+    id: string;
 };
 
 export type Sender = Pick<UserInfo, "displayName" | "uid" | "photoURL">;

@@ -34,7 +34,7 @@ export const seperateMessagesByUserAndTime = (
     messages.forEach((message, index) => {
         if (
             prevSenderUid === message.sender.uid &&
-            message.date.seconds - prevDate <= 60
+            message.date - prevDate <= 60 * 1000
         ) {
             messageGroup.push(message);
         } else {
@@ -48,7 +48,7 @@ export const seperateMessagesByUserAndTime = (
         }
 
         prevSenderUid = message.sender.uid;
-        prevDate = message.date.seconds;
+        prevDate = message.date;
     });
 
     result.shift(); // 처음 빈 배열 제거

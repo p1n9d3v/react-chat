@@ -23,14 +23,6 @@ function Sidebar() {
     return (
         <ul className={styles.Sidebar}>
             <li
-                onClick={() => handleNavigate("/")}
-                className={cn(styles.Sidebar_navItem, {
-                    [styles.Sidebar_navItem___active]: active === "/",
-                })}
-            >
-                <HomeIcon />
-            </li>
-            <li
                 onClick={() => handleNavigate("/users")}
                 className={cn(styles.Sidebar_navItem, {
                     [styles.Sidebar_navItem___active]: active === "/users",

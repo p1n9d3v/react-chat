@@ -20,6 +20,10 @@ function ChatContent({ id }: Props) {
     const [rawMessages, setRawMessages] = useState<Map<string, Message>>(
         new Map(),
     );
+    const allRawMessages = useMemo(
+        () => Array.from(rawMessages.values()),
+        [rawMessages],
+    );
     const messageGroups = useMemo(
         () => parseMessages(rawMessages, currentUser!),
         [rawMessages],
@@ -29,6 +33,12 @@ function ChatContent({ id }: Props) {
         let unsub: Unsubscribe | null = null;
         (async () => {
             const oldChat = (await ChatDB.get("chats", id)) as any;
+            const oldMessages = oldChat?.messages;
+            setRawMessages(
+                new Map<string, Message>(
+                    oldMessages.map((msg: Message) => [msg.id, msg]),
+                ),
+            );
 
             unsub = chat.querySubscribe(
                 {
@@ -38,14 +48,17 @@ function ChatContent({ id }: Props) {
                     },
                     startPoint: {
                         type: "startAfter",
-                        value: 0,
+                        value: oldMessages?.at(-1)?.date ?? 0,
                     },
                 },
                 (snapshot: QuerySnapshot) => {
                     snapshot.forEach((doc: QueryDocumentSnapshot) => {
-                        const newMsg = doc.data() as Message;
+                        const newMsg = doc.data() as Omit<Message, "id">;
                         setRawMessages((oldMsges) =>
-                            new Map(oldMsges).set(doc.id, newMsg),
+                            new Map(oldMsges).set(doc.id, {
+                                id: doc.id,
+                                ...newMsg,
+                            }),
                         );
                     });
                 },
@@ -54,10 +67,12 @@ function ChatContent({ id }: Props) {
 
         return () => {
             if (unsub) unsub();
-            // ChatDB.put("chats", {
-            //     id,
-            //     messages: Array.from(messages),
-            // });
+            if (allRawMessages.length > 0) {
+                ChatDB.put("chats", {
+                    id,
+                    messages: Array.from(rawMessages.values()),
+                });
+            }
         };
     }, []);
 
